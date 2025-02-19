@@ -9,7 +9,7 @@ const main = async () => {
     });
     console.log("Migration Completed");
   } catch (error) {
-    console.log("error during migration: ", error);
+    console.log("Ошибка при миграции: ", error);
     process.exit(1);
   }
 };

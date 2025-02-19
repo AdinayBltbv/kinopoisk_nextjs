@@ -4,7 +4,7 @@ import { useState } from "react";
 import { fetchMovies } from "@/lib/api";
 import { signIn, signOut, useSession } from "next-auth/react";
 import MovieCard from "@/components/MovieCard";
-import { useRouter } from "next/router";
+import { useRouter } from "next/navigation";
 
 interface Movie {
   filmId: number;
@@ -20,6 +20,7 @@ export default function Home() {
 
   const handleSearch = async () => {
     const data = await fetchMovies(query);
+    console.log(data);
     setMovies(data.films || []);
   };
 
@@ -73,9 +74,11 @@ export default function Home() {
       </div>
 
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-        {movies.map((movie) => (
-          <MovieCard key={movie.filmId} movie={movie} />
-        ))}
+        {movies.length > 0 ? (
+          movies.map((movie) => <MovieCard key={movie.filmId} movie={movie} />)
+        ) : (
+          <p>Фильмы не найдены</p>
+        )}
       </div>
     </div>
   );
